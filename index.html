@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio Card | Coding Ninjas 10X SRM</title>
+  
+  <!-- Google Fonts for sleek, modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Link to External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Animated Background Lights -->
+  <div class="background-ambient">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="page-beams" aria-hidden="true">
+    <span class="page-beam beam-top-left"></span>
+    <span class="page-beam beam-top-right"></span>
+    <span class="page-beam beam-bottom-left"></span>
+    <span class="page-beam beam-bottom-right"></span>
+  </div>
+
+  <!-- Main Viewport Container (Flexbox Centering) -->
+  <main class="page-wrapper">
+    
+    <!-- 3D Perspective Card Scene -->
+    <div class="card-scene" id="cardScene">
+      
+      <!-- The Card Itself (Handles 3D Flipping & Tilting) -->
+      <div class="card-3d" id="portfolioCard">
+
+        <!-- ==============================================
+             FACE 1: FRONT (Main Profile & Bio)
+        =============================================== -->
+        <section class="card-face face-front">
+          <div class="badge-role">
+            <span class="status-indicator"></span>
+            <!-- EDITABLE: Role / Tagline -->
+            <span>Coding Ninjas 10X SRM</span>
+          </div>
+
+          <!-- Profile Picture & Glowing Ring -->
+          <div class="avatar-container">
+            <div class="avatar-ring"></div>
+            <!-- EDITABLE: Replace src with your image path (e.g. "avatar.jpg") -->
+            <img 
+              src="profile.jpg" 
+              alt="Profile Picture" 
+              class="avatar-img"
+              id="profileImg"
+            />
+          </div>
+
+          <!-- Personal Info -->
+          <div class="profile-header">
+            <!-- EDITABLE: Your Name -->
+            <h1 class="profile-name">Akshith Pulikonda</h1>
+            <!-- EDITABLE: Subtitle / University / Dept -->
+            <p class="profile-sub">B-Tech CSE Cloud Computing</p>
+          </div>
+
+          <!-- Short Bio -->
+          <div class="bio-box">
+            <!-- EDITABLE: Your short bio -->
+            <p class="bio-text">An aspiring developer with keen interest in web dev, plays basketball and Giannis is my goat and inspiration.</p>
+          </div>
+
+          <!-- Social Media Links (SVG Icons for crisp, fast rendering) -->
+          <div class="social-links" aria-label="Social Profiles">
+            <!-- GitHub -->
+            <a href="https://github.com/BlueMango9" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/akshith-pulikonda-316659295/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/sapinfinite_/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+
+            <!-- X / Twitter -->
+            <a href="https://x.com/sapinfinite" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Reactive Flip Triggers (Reveal different sides) -->
+          <div class="card-controls">
+            <span class="controls-label">Explore My Journey</span>
+            <div class="btn-group">
+              <button class="flip-btn" data-flip="left">
+                <span class="btn-icon"></span> Skills & Interests
+              </button>
+              <button class="flip-btn" data-flip="right">
+                <span class="btn-icon"></span> About Me
+              </button>
+              <button class="flip-btn" data-flip="up">
+                <span class="btn-icon"></span> Contact
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             FACE 2: SKILLS & INTERESTS (Flipped from Left)
+        =============================================== -->
+        <section class="card-face face-skills">
+          <div class="face-topbar">
+            <button class="back-btn" data-action="reset">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Back</span>
+            </button>
+            <span class="face-title">Skills & Interests</span>
+          </div>
+
+          <div class="content-scroll">
+            <p class="section-intro">Skills</p>
+
+            <!-- Technical Skills (at least 3 tested) -->
+            <div class="skills-grid">
+              <div class="skill-chip">
+                <span class="skill-name">Web Dev</span>
+                <span class="skill-level">Can write basic HTML, CSS</span>
+              </div>
+              <div class="skill-chip">
+                <span class="skill-name">Electronics</span>
+                <span class="skill-level">Made DIY Projects using microcontrollers</span>
+              </div>
+              <div class="skill-chip">
+                <span class="skill-name">Linux</span>
+                <span class="skill-level">Can use linux terminal commands</span>
+              </div>
+              <div class="skill-chip">
+                <span class="skill-name">Github</span>
+                <span class="skill-level">familiar with workflows</span>
+              </div>
+            </div>
+
+            <!-- Areas of Interest -->
+            <h3 class="subsection-title">Interests</h3>
+            <div class="interest-tags">
+              <span class="tag">Sports</span>
+              <span class="tag">Photography</span>
+              <span class="tag">Tech Devices & Gadgets</span>
+              <span class="tag">Music (Various Genres)</span>
+              <span class="tag">Travel and explore the World</span>
+              <span class="tag">Entrepreneurship</span>
+              <span class="tag">Gaming</span>
+            </div>
+          </div>
+
+          <div class="face-footer">
+            <button class="action-pill" data-flip="right">About Me ➔</button>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             FACE 3: ABOUT ME (Flipped from Right)
+        =============================================== -->
+        <section class="card-face face-projects">
+          <div class="face-topbar">
+            <button class="back-btn" data-action="reset">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Back</span>
+            </button>
+            <span class="face-title">About Me</span>
+          </div>
+
+          <div class="content-scroll">
+            <div class="about-card">
+              <p class="about-copy">I’m Akshith Pulikonda, a B-Tech Computer Science student specializing in Cloud Computing. I’m an aspiring developer who enjoys learning how technology works and turning that curiosity into practical skills.</p>
+
+              <p class="about-copy">I’m building my foundation in web development with HTML and CSS, exploring Linux command-line tools, and learning GitHub workflows. I also enjoy experimenting with electronics and microcontrollers through DIY projects.</p>
+
+              <h3 class="subsection-title">Beyond the Screen</h3>
+              <p class="about-copy">Outside of tech, I play basketball and look up to Giannis Antetokounmpo. I’m also interested in photography, music, gadgets, gaming, travel, and entrepreneurship.</p>
+            </div>
+          </div>
+
+          <div class="face-footer">
+            <button class="action-pill" data-flip="up">Get in Touch ➔</button>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             FACE 4: CONTACT (Flipped from Up/Down)
+        =============================================== -->
+        <section class="card-face face-contact">
+          <div class="face-topbar">
+            <button class="back-btn" data-action="reset">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Back</span>
+            </button>
+            <span class="face-title">Connect with Me</span>
+          </div>
+
+          <div class="content-scroll">
+            <p class="section-intro">Personal Contact:-
+
+            <div class="contact-list">
+              <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">Akshith.pulikonda@gmail.com</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Phone No.</span>
+                <span class="contact-value">9063709844</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">NET ID</span>
+                <span class="contact-value">ap2375@srmist.edu.in</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Reg No.</span>
+                <span class="contact-value">RA2611028010081</span>
+            </div>
+
+            <!-- Interactive Direct Message Trigger Button -->
+            <button class="cta-pulse-btn" id="sayHiBtn">
+              <span class="btn-icon"></span>--- Have Fun! ---
+            </button>
+            <p class="status-msg" id="statusMsg"></p>
+          </div>
+
+          <div class="face-footer">
+            <button class="action-pill" data-action="reset">Return to Profile</button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Hint text below the card -->
+    <p class="interaction-hint">
+      <em>Hover & move cursor over profile to tilt 3D card</em>
+    </p>
+
+  </main>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

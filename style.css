@@ -1,0 +1,769 @@
+/* ==========================================================================
+   PERSONAL PORTFOLIO CARD STYLESHEET
+   Features:
+   - Modern Glassmorphic Dark UI (Deep space / Cyberpunk palette)
+   - 3D Multi-directional Card Flipping (Left, Right, Vertical)
+   - Interactive CSS Parallax Hover Tilt
+   - Flexbox & Grid responsive layout
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Reset & Variables
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-space: #07090e;
+  --card-bg: rgba(18, 24, 38, 0.75);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-border-glow: rgba(99, 102, 241, 0.4);
+  
+  --primary: #6366f1;       /* Indigo */
+  --primary-glow: #818cf8;
+  --secondary: #06b6d4;     /* Cyan */
+  --accent: #ec4899;        /* Neon Pink */
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --badge-bg: rgba(99, 102, 241, 0.15);
+  --badge-border: rgba(99, 102, 241, 0.3);
+
+  /* Dimensions */
+  --card-w: 390px;
+  --card-h: 580px;
+  --card-radius: 28px;
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-space);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   2. Background Ambient Glow Orbs
+   -------------------------------------------------------------------------- */
+.background-ambient {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.45;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
+
+.page-beams {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page-beam {
+  position: absolute;
+  width: min(125vw, 1800px);
+  height: 100vh;
+  opacity: 0.5;
+  filter: blur(42px) drop-shadow(0 0 55px rgba(255, 255, 255, 0.7));
+}
+.orb-1 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, #1648ff, #00a3ff);
+  top: -10%;
+  left: 20%;
+  animation-duration: 14s;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ff1f1f, #1648ff);
+  bottom: -15%;
+  right: 15%;
+  animation-duration: 18s;
+}
+
+.orb-3 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, #00a3ff, #e60000);
+  top: 40%;
+  left: -5%;
+  animation-duration: 16s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.08); }
+  100% { transform: translate(-30px, 30px) scale(0.95); }
+}
+
+/* --------------------------------------------------------------------------
+   3. Page Wrapper & 3D Scene (Flexbox Center)
+   -------------------------------------------------------------------------- */
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.card-scene {
+  perspective: 1200px; /* Gives realistic 3D depth */
+  width: var(--card-w);
+  height: var(--card-h);
+  max-width: 92vw;
+  max-height: 88vh;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. The 3D Flippable Card
+   -------------------------------------------------------------------------- */
+.card-3d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  /* Smooth snappy spring curve for flipping */
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: var(--card-radius);
+  box-shadow: 
+    0 20px 50px -10px rgba(0, 0, 0, 0.7),
+    0 0 40px -10px rgba(99, 102, 241, 0.25);
+}
+
+/* Multi-Directional Rotation Classes */
+.card-3d.flipped-left {
+  transform: rotateY(-180deg);
+}
+
+.card-3d.flipped-right {
+  transform: rotateY(180deg);
+}
+
+.card-3d.flipped-up {
+  transform: rotateX(180deg);
+}
+
+/* --------------------------------------------------------------------------
+   5. Card Faces Common Styles
+   -------------------------------------------------------------------------- */
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-radius);
+  background:
+    radial-gradient(ellipse 42% 30% at 0% 0%, rgba(255, 255, 255, 0.2), transparent 72%),
+    radial-gradient(ellipse 42% 30% at 100% 0%, rgba(255, 255, 255, 0.2), transparent 72%),
+    radial-gradient(ellipse 42% 30% at 0% 100%, rgba(255, 255, 255, 0.2), transparent 72%),
+    radial-gradient(ellipse 42% 30% at 100% 100%, rgba(255, 255, 255, 0.2), transparent 72%),
+    var(--card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 24px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-face::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+}
+
+/* By default, Front face is active */
+.card-face.face-front {
+  opacity: 1;
+  pointer-events: auto;
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+/* Left face (Skills) */
+.card-face.face-skills {
+  transform: rotateY(-180deg) translateZ(1px);
+}
+
+/* Right face (Projects) */
+.card-face.face-projects {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+/* Up face (Contact) */
+.card-face.face-contact {
+  transform: rotateX(180deg) translateZ(1px);
+}
+
+/* Active face visibility when flipped */
+.card-3d.flipped-left .face-skills {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card-3d.flipped-right .face-projects {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card-3d.flipped-up .face-contact {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   6. Front Face Elements
+   -------------------------------------------------------------------------- */
+.badge-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--primary-glow);
+  margin-bottom: 20px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981; /* Green status */
+  box-shadow: 0 0 10px #10b981;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Profile Avatar */
+.avatar-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin-bottom: 16px;
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6a00, #ffd000, #ff0000);
+  animation: spinRing 6s linear infinite;
+  z-index: 1;
+}
+
+@keyframes spinRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.avatar-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #0d121f;
+  background-color: #1a2234;
+  transition: transform 0.3s ease;
+}
+
+.avatar-container:hover .avatar-img {
+  transform: scale(1.05);
+}
+
+/* Profile Headers */
+.profile-header {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.profile-name {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.profile-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Bio Box */
+.bio-box {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.bio-text {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #20e0c2;
+}
+
+/* Social Media Links (Flexbox Row) */
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.social-btn:hover {
+  color: #ffffff;
+  background: #050505;
+  border-color: #ffffff;
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.8);
+}
+
+/* Reactive Direction Flip Controls */
+.card-controls {
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+}
+
+.controls-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.flip-btn {
+  flex: 1;
+  padding: 10px 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.flip-btn:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(6, 182, 212, 0.3));
+  border-color: var(--primary-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.btn-icon {
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. Flip Faces Sub-Elements (Skills, Projects, Contact)
+   -------------------------------------------------------------------------- */
+.face-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: var(--secondary);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(6, 182, 212, 0.15);
+  transform: translateX(-3px);
+}
+
+.face-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+/* Scrollable Inner Content */
+.content-scroll {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Subtle scrollbar */
+.content-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.content-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.section-intro {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.skill-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.skill-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--secondary);
+  background: rgb(0, 0, 0);
+}
+
+.skill-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.skill-level {
+  font-size: 0.72rem;
+  color: var(--secondary);
+}
+
+.subsection-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 8px;
+}
+
+/* Interest tags */
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  background: rgba(57, 255, 20, 0.1);
+  border: 1px solid rgba(57, 255, 20, 0.45);
+  border-radius: 8px;
+  color: #39ff14;
+  font-weight: 500;
+}
+
+/* Mini Project Cards */
+.mini-project-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  transition: all 0.25s ease;
+}
+
+.mini-project-card:hover {
+  border-color: var(--primary-glow);
+  transform: translateY(-2px);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.proj-title {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.proj-badge {
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 6px;
+  color: var(--primary-glow);
+  font-weight: 600;
+}
+
+.proj-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.about-copy {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.about-card {
+  width: 100%;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(32, 224, 194, 0.28);
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(32, 224, 194, 0.06);
+}
+
+.about-copy + .about-copy {
+  margin-top: 12px;
+}
+
+.about-card .subsection-title {
+  margin-top: 16px;
+}
+
+/* Contact List */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.contact-value {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.cta-pulse-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.5);
+  transition: all 0.25s ease;
+}
+
+.cta-pulse-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -4px rgba(99, 102, 241, 0.7);
+}
+
+.status-msg {
+  font-size: 0.8rem;
+  color: #10b981;
+  text-align: center;
+  min-height: 18px;
+  font-weight: 500;
+}
+
+/* Face Footer Action Pills */
+.face-footer {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.action-pill {
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Interaction Hint Footer */
+.interaction-hint {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #faff00;
+  text-shadow: 0 0 8px rgba(250, 255, 0, 0.55);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive Adjustments
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  :root {
+    --card-w: 340px;
+    --card-h: 560px;
+  }
+  
+  .card-face {
+    padding: 22px 18px;
+  }
+
+  .profile-name {
+    font-size: 1.4rem;
+  }
+
+  .btn-group {
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .flip-btn {
+    font-size: 0.74rem;
+    padding: 8px 4px;
+  }
+}
