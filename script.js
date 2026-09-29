@@ -1,17 +1,4 @@
-/**
- * ==========================================================================
- * PERSONAL PORTFOLIO CARD JAVASCRIPT
- * Features:
- * 1. Multi-directional 3D Card Flipping (Left, Right, Vertical)
- * 2. Interactive Mouse Parallax 3D Tilt Effect
- * 3. Reset & Keyboard Accessibility (Escape to return)
- * 4. Interactive Feedback & Micro-interactions
- * ==========================================================================
- */
-
-// Wait until the HTML document is fully loaded before executing scripts
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. DOM Element Selectors
   const card = document.getElementById("portfolioCard");
   const cardScene = document.getElementById("cardScene");
   const flipButtons = document.querySelectorAll("[data-flip]");
@@ -22,9 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Track if card is currently flipped to any side face
   let isFlipped = false;
 
-  // ------------------------------------------------------------------------
   // 2. Multi-Directional Flip Handler
-  // ------------------------------------------------------------------------
   function flipCard(direction) {
     // Reset any mouse tilt before flipping
     card.style.transform = "";
@@ -75,9 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ------------------------------------------------------------------------
   // 3. Interactive Mouse Parallax 3D Tilt Effect
-  // ------------------------------------------------------------------------
   cardScene.addEventListener("mousemove", (e) => {
     // Disable tilt if card is currently flipped to a backface
     if (isFlipped) return;
@@ -108,19 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ------------------------------------------------------------------------
   // 4. Interactive "Say Hello" Action
-  // ------------------------------------------------------------------------
   if (sayHiBtn && statusMsg) {
     sayHiBtn.addEventListener("click", () => {
-      statusMsg.textContent = "🎉 Thanks for checking out my card! Let's connect soon.";
-      sayHiBtn.textContent = "✨ Sent!";
+      statusMsg.textContent = "Thanks for checking out my Profile, Hope you like my task, looking forward to a member of coding ninjas 10X";
+      sayHiBtn.textContent = "Vamos!";
       sayHiBtn.style.opacity = "0.8";
       sayHiBtn.disabled = true;
 
       setTimeout(() => {
         statusMsg.textContent = "";
-        sayHiBtn.textContent = "👋 Say Hello";
+        sayHiBtn.textContent = "DO NOT CLICK";
         sayHiBtn.style.opacity = "1";
         sayHiBtn.disabled = false;
       }, 4000);
